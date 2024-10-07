@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useWorkSpaceId } from "@/hooks/use-workspace-id";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useCurrentUser } from "@/features/auth/api/use-current-user";
 
 type Props = {
   id: Id<"members">;
@@ -32,6 +33,10 @@ const userItemsvariants = cva(
 const UserItem = ({ id, label = "Member", image, variant }: Props) => {
   const workspaceId = useWorkSpaceId();
   const avatarFalssback = label.charAt(0).toUpperCase();
+  const { data } = useCurrentUser();
+
+  const name = data?.name === label ? "Saved Messages" : label;
+
   return (
     <Button
       variant={"transparent"}
@@ -46,7 +51,7 @@ const UserItem = ({ id, label = "Member", image, variant }: Props) => {
             {avatarFalssback}
           </AvatarFallback>
         </Avatar>
-        <span className="text-sm truncate">{label}</span>
+        <span className="text-sm truncate">{name}</span>
       </Link>
     </Button>
   );

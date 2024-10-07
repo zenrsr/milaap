@@ -19,7 +19,9 @@ const Toolbar = (props: Props) => {
           className="bg-accent/25 hover:bg-accent-25 w-full justify-start h-7 px-2"
         >
           <SearchIcon className="size-4 text-white mr-2" />
-          <span className="text-white text-xs">Search {data?.name}</span>
+          <span className="text-white text-xs">
+            Search {data?.name} Workspace
+          </span>
         </Button>
       </div>
       <div className="ml-auto flex-1 flex items-center justify-end">

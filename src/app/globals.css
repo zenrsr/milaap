@@ -137,3 +137,8 @@ body {
   border: none !important;
   @apply truncate
 }
+
+.messages-scrollbar{
+  scrollbar-width: thin;
+  scrollbar-color: #dcdcdc #080808;
+}

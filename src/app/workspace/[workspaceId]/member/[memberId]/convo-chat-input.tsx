@@ -1,6 +1,5 @@
 import { useCreateMessage } from "@/features/messages/api/use-create-message";
 import { useImageGenerateUrl } from "@/features/upload/api/use-image-generate-url";
-import { useChannelId } from "@/hooks/use-channel-id";
 import { useWorkSpaceId } from "@/hooks/use-workspace-id";
 import dynamic from "next/dynamic";
 import Quill from "quill";
@@ -8,24 +7,24 @@ import Quill from "quill";
 const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 import React, { useRef, useState } from "react";
 import { toast } from "sonner";
-import { Id } from "../../convex/_generated/dataModel";
+import { Id } from "../../../../../../convex/_generated/dataModel";
 
 type Props = {
   placeholder: string;
+  conversationId: Id<"conversations">;
 };
 
 type CreateMessage = {
-  channelId: Id<"channels">;
+  conversationId: Id<"conversations">;
   workspaceId: Id<"workspaces">;
   body: string;
   image: Id<"_storage"> | undefined;
 };
 
-const ChatInput = ({ placeholder }: Props) => {
+const ConvoChatInput = ({ placeholder, conversationId }: Props) => {
   const [editorKey, setEditorKey] = useState(0);
   const [isPending, setIsPending] = useState<boolean>(false);
   const workspaceId = useWorkSpaceId();
-  const channelId = useChannelId();
 
   const { mutate: createMessage } = useCreateMessage();
   const { mutate: generateUploadUrl } = useImageGenerateUrl();
@@ -45,7 +44,7 @@ const ChatInput = ({ placeholder }: Props) => {
       editorRef.current?.enable(false);
 
       const values: CreateMessage = {
-        channelId,
+        conversationId,
         workspaceId,
         body,
         image: undefined,
@@ -96,4 +95,4 @@ const ChatInput = ({ placeholder }: Props) => {
   );
 };
 
-export default ChatInput;
+export default ConvoChatInput;

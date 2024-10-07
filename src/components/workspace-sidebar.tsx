@@ -17,12 +17,14 @@ import { useGetMembers } from "@/features/members/api/use-get-members";
 import UserItem from "./user-item";
 import { useCreateChannelModal } from "@/features/channels/store/use-create-channel-modal";
 import { useChannelId } from "@/hooks/use-channel-id";
+import { useMemberId } from "@/hooks/use-member-id";
 
 type Props = {};
 
 const WorkspaceSidebar = (props: Props) => {
   const workspaceId = useWorkSpaceId();
   const channelId = useChannelId();
+  const memberId = useMemberId();
 
   const [_open, setOpen] = useCreateChannelModal();
 
@@ -57,7 +59,7 @@ const WorkspaceSidebar = (props: Props) => {
     );
 
   return (
-    <div className="flex flex-col bg-black-3/50 h-full">
+    <div className="flex flex-col bg-black-1/75 h-full">
       <WorkspaceHeader
         workspace={workspace}
         isAdmin={member.role === "admin"}
@@ -100,6 +102,7 @@ const WorkspaceSidebar = (props: Props) => {
             id={item._id}
             label={item.user.name}
             image={item.user.image}
+            variant={item._id === memberId ? "active" : "default"}
           />
         ))}
       </WorkspaceSection>
