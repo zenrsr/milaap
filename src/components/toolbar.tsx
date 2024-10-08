@@ -67,7 +67,10 @@ const Toolbar = (props: Props) => {
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Channels">
               {channels?.map((channel) => (
-                <CommandItem onSelect={() => onChannelClick(channel._id)}>
+                <CommandItem
+                  key={channel._id}
+                  onSelect={() => onChannelClick(channel._id)}
+                >
                   # {channel.name}
                 </CommandItem>
               ))}
@@ -75,6 +78,7 @@ const Toolbar = (props: Props) => {
             <CommandGroup heading="Memebers">
               {memebers?.map((member) => (
                 <CommandItem
+                  key={member._id}
                   className="gap-2"
                   onSelect={() => onMemberClick(member._id)}
                 >
