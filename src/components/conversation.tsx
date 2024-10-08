@@ -8,6 +8,7 @@ import ConversationHeader from "./conversation-header";
 import ConvoChatInput from "@/app/workspace/[workspaceId]/member/[memberId]/convo-chat-input";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
 import MessageList from "./message-list";
+import { usePanel } from "@/hooks/use-panel";
 
 type Props = {
   id: Id<"conversations">;
@@ -24,6 +25,8 @@ const Conversation = ({ id }: Props) => {
   });
   const { data: currentAuthMember, isLoading: currentAuthMemberLoading } =
     useCurrentUser();
+
+  const { onOpenProfile } = usePanel();
 
   if (
     memberLoading ||
@@ -49,7 +52,7 @@ const Conversation = ({ id }: Props) => {
         memberName={member?.user.name}
         memberImage={member?.user.image}
         memberEmail={member?.user.email}
-        onClick={() => {}}
+        onClick={() => onOpenProfile(memberId)}
       />
       <MessageList
         data={results}

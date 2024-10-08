@@ -15,6 +15,7 @@ import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction"
 import Reactions from "./reactions";
 import { usePanel } from "@/hooks/use-panel";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
+import ThreadBar from "./thread-bar";
 
 const Renderer = dynamic(() => import("@/components/renderer"), { ssr: false });
 const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
@@ -38,6 +39,7 @@ type Props = {
   updatedAt: Doc<"messages">["updatedAt"];
   threadCount?: number;
   threadImage?: string;
+  threadName?: string;
   threadTimestamp?: number;
   isEditing: boolean;
   setEditingId: (id: Id<"messages"> | null) => void;
@@ -61,6 +63,7 @@ const Message = ({
   updatedAt,
   threadCount,
   threadImage,
+  threadName,
   threadTimestamp,
   isEditing,
   setEditingId,
@@ -74,7 +77,8 @@ const Message = ({
 
   const avatarFalssback = authorName.charAt(0).toUpperCase();
 
-  const { parentMessageId, onOpenMessage, onCloseMessage } = usePanel();
+  const { parentMessageId, onOpenMessage, onCloseMessage, onOpenProfile } =
+    usePanel();
 
   const [ConfirmDialog, confirmation] = useConfirm(
     "Delete Message",
@@ -90,7 +94,7 @@ const Message = ({
   const { mutate: toggleReaction, isPending: isTogglingReaction } =
     useToggleReaction();
 
-  const isPending = isMessageUpdating;
+  const isPending = isMessageUpdating || isTogglingReaction;
 
   const name =
     currentAuthMember?.name === authorName &&
@@ -186,6 +190,13 @@ const Message = ({
                   </span>
                 ) : null}
                 <Reactions data={reactions} onChange={handleReaction} />
+                <ThreadBar
+                  count={threadCount}
+                  image={threadImage}
+                  timestamp={threadTimestamp}
+                  name={threadName}
+                  onClick={() => onOpenMessage(id)}
+                />
               </div>
             )}
           </div>
@@ -217,7 +228,7 @@ const Message = ({
         >
           <div className="flex items-start gap-2">
             <button>
-              <Avatar>
+              <Avatar onClick={() => onOpenProfile(memberId)}>
                 <AvatarImage src={authorImage} />
                 <AvatarFallback className="font-semibold font-mono text-xs">
                   {avatarFalssback}
@@ -239,7 +250,7 @@ const Message = ({
                 <div className="text-sm">
                   <button
                     className="font-bold text-primary hover:underline"
-                    onClick={() => {}}
+                    onClick={() => onOpenProfile(memberId)}
                   >
                     {name}
                   </button>
@@ -261,6 +272,13 @@ const Message = ({
                   </span>
                 ) : null}
                 <Reactions data={reactions} onChange={handleReaction} />
+                <ThreadBar
+                  count={threadCount}
+                  image={threadImage}
+                  timestamp={threadTimestamp}
+                  name={threadName}
+                  onClick={() => onOpenMessage(id)}
+                />
               </div>
             )}
           </div>

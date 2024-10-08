@@ -33,7 +33,7 @@ const Schema = defineSchema({
     updatedAt: v.optional(v.number()),
     conversationId: v.optional(v.id("conversations")),
   })
-    .index("by_workspaceId", ["workspaceId"])
+    .index("by_workspace_id", ["workspaceId"])
     .index("by_member_id", ["memberId"])
     .index("by_channel_id", ["channelId"])
     .index("by_conversation_id", ["conversationId"])
@@ -47,14 +47,14 @@ const Schema = defineSchema({
     workspaceId: v.id("workspaces"),
     memberOneId: v.id("members"),
     memberTwoId: v.id("members"),
-  }).index("by_workspaceId", ["workspaceId"]),
+  }).index("by_workspace_id", ["workspaceId"]),
   reactions: defineTable({
     workspaceId: v.id("workspaces"),
     messageId: v.id("messages"),
     memberId: v.id("members"),
     value: v.string(),
   })
-    .index("by_workspaceId", ["workspaceId"])
+    .index("by_workspace_id", ["workspaceId"])
     .index("by_message_id", ["messageId"])
     .index("by_member_id", ["memberId"]),
 });
