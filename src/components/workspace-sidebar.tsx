@@ -65,7 +65,7 @@ const WorkspaceSidebar = (props: Props) => {
         isAdmin={member.role === "admin"}
       />
       <div className="flex flex-col px-2 mt-3 gap-2.5">
-        <SidebarItem
+        {/* <SidebarItem
           label="Threads"
           icon={MessageSquareTextIcon}
           id="threads"
@@ -74,7 +74,7 @@ const WorkspaceSidebar = (props: Props) => {
           label="Drafts & Sent"
           icon={SendHorizontalIcon}
           id="threads"
-        />
+        /> */}
       </div>
       <WorkspaceSection
         label="Channels"

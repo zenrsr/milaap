@@ -23,9 +23,9 @@ const Sidebar = (props: Props) => {
         label="Home"
         isActive={pathname.includes("/workspace")}
       />
-      <SidebarButton icon={MessageCircleCode} label="DM's" />
+      {/* <SidebarButton icon={MessageCircleCode} label="DM's" />
       <SidebarButton icon={BellDotIcon} label="Alerts" />
-      <SidebarButton icon={MoreHorizontalIcon} label="More" />
+      <SidebarButton icon={MoreHorizontalIcon} label="More" /> */}
       <div className="flex flex-col items-center justify-center gap-y-1 mt-auto">
         <UserButton />
       </div>
